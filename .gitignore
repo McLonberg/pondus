@@ -1,7 +1,9 @@
 #Files
-
+secrets.py
 
 #Folders
 local/
 img/
 .vscode/
+build/
+__pycache__/

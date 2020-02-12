@@ -3,11 +3,11 @@ import requests
 import shutil
 import time
 import boto3
-
+from secrets import *
 
 # AWS Stuff
-MyS3 = boto3.resource('s3', aws_access_key_id='AKIAYLY6HA5RSUDDLGXU',
-                      aws_secret_access_key='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')
+MyS3 = boto3.resource('s3', aws_access_key_id=my_aws_access_key_id,
+                      aws_secret_access_key=my_aws_secret_access_key)
 targetBucket = 'mclonberg-pondus'
 
 # Could add automation here to retrieve the list of strips
