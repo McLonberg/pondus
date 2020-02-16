@@ -1,9 +1,15 @@
 #Files
 secrets.py
+http_call_test.http
+*_local.py
+
+
 
 #Folders
 local/
 img/
+tmp/
 .vscode/
 build/
 __pycache__/
+deploy/
