@@ -6,7 +6,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: MyDailyPondus
-      Description:  'Simple python function that calls vg.no api's with a cookie value to retrieve daily comics.'
+      Description:  "Simple python function that calls vg.no api's with a cookie value to retrieve daily comics."
       Handler: getpondus.lambda_handler
       Runtime: python3.8
       CodeUri: ./function.zip
