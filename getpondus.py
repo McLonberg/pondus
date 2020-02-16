@@ -39,7 +39,7 @@ def lambda_handler(event, context):
             MyS3.Bucket(targetBucket).upload_file(curfile, targetfile)
             #  Add SNS Notification?
         else:
-            print(curstrip + ' not found.  Status code: ' + r.status_code)
+            print(r.status_code)
             #  Add SNS Notification?
 
 
