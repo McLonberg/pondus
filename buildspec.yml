@@ -11,7 +11,7 @@ phases:
     commands:
       - echo "Entered the build phase..."
       - export BUCKET=mclonberg-build-artifacts
-      - aws cloudformation package deploy/function.zip --s3-bucket $BUCKET --output-template-file outputtemplate.yml
+      - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
 artifacts:
   type: zip
   files:
