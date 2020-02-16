@@ -14,7 +14,7 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: cron(15 7 ? * * *)
-  pondus_role:
+  pondusrole:
     Type: AWS::IAM::Role
     Properties:
       ManagedPolicyArns: arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
