@@ -3,17 +3,17 @@ phases:
   install:
     runtime-versions:
         python: 3.8
-    commands:
-      - echo "Entered the install phase..."
-      - ls -la
-      - cd pkgs && zip -q ../function.zip -r9 . && cd .. && zip -qg function.zip getpondus.py
+
   build:
     commands:
       - echo "Entered the build phase..."
+      - cd pkgs && zip -q ../function.zip -r9 . && cd .. && zip -qg function.zip getpondus.py
       - aws s3 cp function.zip s3://mclonberg-build-artifacts/pondus/
+      - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
 artifacts:
   type: zip
   files:
     - template.yml
     - outputtemplate.yml
+    - function.zip
   
