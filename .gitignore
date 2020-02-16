@@ -3,8 +3,6 @@ secrets.py
 http_call_test.http
 *_local.py
 
-
-
 #Folders
 local/
 img/
