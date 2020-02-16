@@ -16,9 +16,12 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: cron(15 7 ? * * *)
+            Name: MyDailyPondusSchedule
+            Description: 'Retrieves comics from VG.no on daily basis.'
   pondusrole:
     Type: AWS::IAM::Role
     Properties:
+      RoleName: MyDailyPondusRole
       ManagedPolicyArns: 
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       AssumeRolePolicyDocument:
