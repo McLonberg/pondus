@@ -7,7 +7,7 @@ Resources:
     Properties:
       Handler: getpondus.lambda_handler
       Runtime: python3.8
-      CodeUri: s3://mclonberg-build-artifacts/pondus/function.zip
+      CodeUri: ./
       Events:
         PondusSchedule:
           Type: Schedule
