@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'A function to retrieve daily comics from VG.no and store them in S3 in case I forget to log in and read them'
+Resources:
+  pondus:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: getpondus.lambda_handler
+      Runtime: python3.8
+      CodeUri: ./
+      Events:
+        PondusSchedule:
+          Type: Schedule
+          Properties:
+            Schedule: cron(15 7 ? * * *)
+      

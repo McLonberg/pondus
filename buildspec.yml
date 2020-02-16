@@ -3,12 +3,17 @@ phases:
   install:
     runtime-versions:
         python: 3.8
+    commands:
+      - echo "Entered the install phase..."
+      - sh scripts/zip_me.sh
   build:
     commands:
+      - echo "Entered the build phase..."
       - export BUCKET=mclonberg-build-artifacts
-      - aws cloudformation package --template-file template.yml --s3-bucket $BUCKET --output-template-file outputtemplate.yml
+      - aws cloudformation package deploy/function.zip --s3-bucket $BUCKET --output-template-file outputtemplate.yml
 artifacts:
   type: zip
   files:
     - template.yml
     - outputtemplate.yml
+  
