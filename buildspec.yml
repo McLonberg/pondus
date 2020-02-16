@@ -5,6 +5,7 @@ phases:
         python: 3.8
     commands:
       - echo "Entered the install phase..."
+      - ls -la
       - sh scripts/zip_me.sh
   build:
     commands:
