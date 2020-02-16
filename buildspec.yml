@@ -6,7 +6,7 @@ phases:
     commands:
       - echo "Entered the install phase..."
       - ls -la
-      - sh scripts/zip_me.sh
+      - cd pkgs && zip ../function.zip -r9 . && cd .. && zip -g function.zip getpondus.py
   build:
     commands:
       - echo "Entered the build phase..."
