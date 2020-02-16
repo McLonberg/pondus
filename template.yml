@@ -8,6 +8,7 @@ Resources:
       Handler: getpondus.lambda_handler
       Runtime: python3.8
       CodeUri: ./function.zip
+      Timeout: 12
       Events:
         PondusSchedule:
           Type: Schedule
