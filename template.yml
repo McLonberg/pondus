@@ -1,6 +1,6 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: 'A function to retrieve daily comics from VG.no and store them in S3 in case I forget to log in and read them.'
+Description: "A function to retrieve daily comics from VG.no and store them in S3 in case I forget to log in and read them."
 Resources:
   pondus:
     Type: AWS::Serverless::Function
@@ -14,4 +14,16 @@ Resources:
           Type: Schedule
           Properties:
             Schedule: cron(15 7 ? * * *)
-      
+  pondus_role:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns: arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:PutObject
+            Resource:
+              - arn:aws:s3:::mclonberg-pondus/*
+      Path: "/"
