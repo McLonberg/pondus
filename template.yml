@@ -5,6 +5,7 @@ Resources:
   pondus:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: MyDailyPondus
       Handler: getpondus.lambda_handler
       Runtime: python3.8
       CodeUri: ./function.zip
