@@ -2,17 +2,18 @@ AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: "A function to retrieve daily comics from VG.no and store them in S3 in case I forget to log in and read them."
 Resources:
-  pondus:
+  pondusfunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: MyDailyPondus
+      Description:  'Simple python function that calls vg.no api's with a cookie value to retrieve daily comics.'
       Handler: getpondus.lambda_handler
       Runtime: python3.8
       CodeUri: ./function.zip
       Timeout: 12
       Role:  !GetAtt pondusrole.Arn
       Events:
-        PondusSchedule:
+        DailySchedule:
           Type: Schedule
           Properties:
             Schedule: cron(15 7 ? * * *)
