@@ -6,42 +6,41 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: MyDailyPondus
-      Description:  "Simple python function that calls vg.no api's with a cookie value to retrieve daily comics."
+      Description: "Simple python function that calls vg.no api's with a cookie value to retrieve daily comics."
       Handler: getpondus.lambda_handler
       Runtime: python3.8
       CodeUri: ./function.zip
       Timeout: 12
-      Role:  !GetAtt pondusrole.Arn
+      Role: !GetAtt pondusrole.Arn
       Events:
         DailySchedule:
           Type: Schedule
           Properties:
             Schedule: cron(15 7 ? * * *)
             Name: MyDailyPondusSchedule
-            Description: 'Retrieves comics from VG.no on daily basis.'
+            Description: "Retrieves comics from VG.no on daily basis."
   pondusrole:
     Type: AWS::IAM::Role
     Properties:
       RoleName: MyDailyPondusRole
-      ManagedPolicyArns: 
+      ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
-              Service: 
-                lambda.amazonaws.com
+              Service: lambda.amazonaws.com
             Action:
               - sts:AssumeRole
       Policies:
         - PolicyName: PondusS3
           PolicyDocument:
             Version: "2012-10-17"
-            Statement:    
-                - Effect: Allow
-                  Action:
-                    - s3:PutObject
-                  Resource:
-                    - arn:aws:s3:::mclonberg-pondus/*
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource:
+                  - arn:aws:s3:::mclonberg-pondus/*
       Path: "/"
