@@ -44,3 +44,11 @@ Resources:
                 Resource:
                   - arn:aws:s3:::mclonberg-pondus/*
       Path: "/"
+  pondussns:
+    Type: AWS::SNS::Topic
+    Properties: 
+      DisplayName: "MyDailyPondus"
+      Subscription: 
+        - Endpoint: "andreas.lonberg@gmail.com"
+          Protocol: "email"
+      TopicName: "MyDailyPondus"
