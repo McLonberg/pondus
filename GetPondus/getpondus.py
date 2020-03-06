@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     # Could add automation here to retrieve the list of strips
     stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']
     curdate = time.strftime("%Y-%m-%d", time.localtime())
-    SNS_message = "Comic Strip status for " + curdate + "\n"
+    SNS_message = 'Comic Strip status for ' + curdate + '\n'
 
     # Get today's strips
     for strip in stripList:
@@ -39,11 +39,11 @@ def lambda_handler(event, context):
             # Once file is complete, write it to AWS
             MyS3.Bucket(targetBucket).upload_file(curfile, targetfile)
             #  SNS Mesage Construct
-            SNS_message = SNS_message + curstrip + " - successfully downloaded\n"
+            SNS_message = SNS_message + curstrip + ' - successfully downloaded\n'
         else:
             print(r.status_code)
             #  SNS Mesage Construct
-            SNS_message = SNS_message + curstrip + " - failed\n"
+            SNS_message = SNS_message + curstrip + ' - failed\n'
 
-print(SNS_message)
-print('Function complete')
+    print(SNS_message)
+    print('Function complete')
