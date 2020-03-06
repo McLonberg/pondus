@@ -45,5 +45,6 @@ def lambda_handler(event, context):
             #  SNS Mesage Construct
             SNS_message = SNS_message + curstrip + ' - failed\n'
 
-    print(SNS_message)
+    #print(SNS_message)
+    aws sns --topic-arn arn:aws:sns:eu-west-1:575052121955:MyDailyPondus --message SNS_message
     print('Function complete')
