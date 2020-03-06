@@ -6,9 +6,11 @@ import boto3
 
 print('Loading Function')
 
+
 def lambda_handler(event, context):
     # AWS Stuff
     MyS3 = boto3.resource('s3')
+    MySNS = bot3.client('sns')
     targetBucket = 'mclonberg-pondus'
 
     # Could add automation here to retrieve the list of strips
@@ -45,6 +47,9 @@ def lambda_handler(event, context):
             #  SNS Mesage Construct
             SNS_message = SNS_message + curstrip + ' - failed\n'
 
-    #print(SNS_message)
-    aws sns --topic-arn arn:aws:sns:eu-west-1:575052121955:MyDailyPondus --message SNS_message
+    # print(SNS_message)
+    MySNS.publish(
+        TopicArn='arn:aws:sns:eu-west-1:575052121955:MyDailyPondus',
+        Message=SNS_message)
+
     print('Function complete')
