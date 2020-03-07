@@ -50,7 +50,7 @@ def lambda_handler(event, context):
     # print(SNS_message)
     MySNS.publish(
         TopicArn='arn:aws:sns:eu-west-1:575052121955:MyDailyPondus',
-        Subject='My Daily Pondus'
+        Subject='My Daily Pondus',
         Message=SNS_message)
 
     print('Function complete')

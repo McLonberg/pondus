@@ -43,6 +43,11 @@ Resources:
                   - s3:PutObject
                 Resource:
                   - arn:aws:s3:::mclonberg-pondus/*
+              - Effect: Allow
+                Action:
+                  - sns:Publish
+                Resource:
+                  - !GetAtt pondussns.Arn
       Path: "/"
   pondussns:
     Type: AWS::SNS::Topic
