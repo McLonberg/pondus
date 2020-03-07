@@ -47,7 +47,7 @@ Resources:
                 Action:
                   - sns:Publish
                 Resource:
-                  - !GetAtt pondussns.Arn
+                  - arn:aws:sns:eu-west-1:575052121955:MyDailyPondus
       Path: "/"
   pondussns:
     Type: AWS::SNS::Topic
