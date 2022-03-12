@@ -1,0 +1,6 @@
+#### Requirements without specific versions
+awscli
+boto3
+requests
+shutil
+time

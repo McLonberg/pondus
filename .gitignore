@@ -2,6 +2,7 @@
 secrets.py
 http_call_test.http
 *_local.py
+.dccache
 
 #Folders
 local/

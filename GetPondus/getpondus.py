@@ -4,6 +4,7 @@ import shutil
 import time
 import boto3
 
+
 print('Loading Function')
 
 
@@ -14,8 +15,9 @@ def lambda_handler(event, context):
     targetBucket = 'mclonberg-pondus'
 
     # Could add automation here to retrieve the list of strips
-    #stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']  //  Hanneland removed 27/08/2020 and replaced with Zelda
-    stripList = ['gjesteserie', 'hjalmar', 'lunch', 'pondus', 'hanneland']
+    # stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']  //  Hanneland removed 27/08/2020 and replaced with Zelda
+    # Storefri re-added 07/03/2022
+    stripList = ['gjesteserie', 'hjalmar', 'lunch', 'pondus', 'storefri']
     curdate = time.strftime("%Y-%m-%d", time.localtime())
     SNS_message = 'Comic Strip status for ' + curdate + '\n'
 
