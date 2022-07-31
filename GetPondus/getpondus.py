@@ -1,8 +1,7 @@
-# importing libraries incl requests
-import requests
 import shutil
 import time
 import boto3
+import requests
 
 
 print('Loading Function')
@@ -10,50 +9,52 @@ print('Loading Function')
 
 def lambda_handler(event, context):
     # AWS Stuff
-    MyS3 = boto3.resource('s3')
-    MySNS = boto3.client('sns')
-    targetBucket = 'mclonberg-pondus'
+    my_s3 = boto3.resource('s3')
+    my_sns = boto3.client('sns')
+    target_bucket = 'mclonberg-pondus'
 
     # Could add automation here to retrieve the list of strips
-    # stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']  //  Hanneland removed 27/08/2020 and replaced with Zelda
+    # stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']
+    # //  Hanneland removed 27/08/2020 and replaced with Zelda
     # Storefri re-added 07/03/2022
-    stripList = ['gjesteserie', 'hjalmar', 'lunch', 'pondus', 'storefri']
+    strip_list = ['gjesteserie', 'hjalmar', 'lunch', 'pondus', 'storefri']
     curdate = time.strftime("%Y-%m-%d", time.localtime())
-    SNS_message = 'Comic Strip status for ' + curdate + '\n'
+    sns_message = 'Comic Strip status for ' + curdate + '\n'
 
     # Get today's strips
-    for strip in stripList:
+    for strip in strip_list:
         curstrip = strip
         # api-endpoint
-        URL = "https://www.vg.no/tegneserier/api/images/" + \
+        target_url = "https://www.vg.no/tegneserier/api/images/" + \
             curstrip + "/" + curdate + ".webp"
-        headers = {"cookie": "SP_ID=eyJjbGllbnRfaWQiOiI0ZWYxY2ZiMGU5NjJkZDJlMGQ4ZDAwMDAiLCJhdXRoIjoiZDFkNC1lWmwtRGtLWHRRRWV0ZVdJYlpYZF9jU3NnYUdGXzFHb3E0ak5feHhVdkJSd2VHQjhnVEZtdnN6RWtXZnB6bDFZVDBvRFlqVW9pSWhTQkNnaEtHZklRME8wU3hsQkJwcnFaczhyeGsifQ;"}
+        headers = {"cookie": \
+            "SP_ID=eyJjbGllbnRfaWQiOiI0ZWYxY2ZiMGU5NjJkZDJlMGQ4ZDAwMDAiLCJhdXRoIjoiZDFkNC1lWmwtRGtLWHRRRWV0ZVdJYlpYZF9jU3NnYUdGXzFHb3E0ak5feHhVdkJSd2VHQjhnVEZtdnN6RWtXZnB6bDFZVDBvRFlqVW9pSWhTQkNnaEtHZklRME8wU3hsQkJwcnFaczhyeGsifQ;"}
 
         # sending get request and saving the response as response object
-        r = requests.get(url=URL, headers=headers, stream=True)
+        req_call = requests.get(url=target_url, headers=headers, stream=True)
         curfile = '/tmp/' + curstrip + '-' + curdate + '.webp'
         targetfile = 'img/' + curdate + '/' + curstrip + '.webp'
 
-        if r.status_code == 200:
-            with open(curfile, 'wb') as f:  # Creating a binary file
-                r.raw.decode_content = True
-                shutil.copyfileobj(r.raw, f)
+        if req_call.status_code == 200:
+            with open(curfile, 'wb') as output_file:  # Creating a binary file
+                req_call.raw.decode_content = True
+                shutil.copyfileobj(req_call.raw, output_file)
 
             print(curstrip + ' for ' + curdate + ' copied')
 
             # Once file is complete, write it to AWS
-            MyS3.Bucket(targetBucket).upload_file(curfile, targetfile)
+            my_s3.Bucket(target_bucket).upload_file(curfile, targetfile)
             #  SNS Mesage Construct
-            SNS_message = SNS_message + curstrip + ' - successfully downloaded\n'
+            sns_message = sns_message + curstrip + ' - successfully downloaded\n'
         else:
-            print(r.status_code)
+            print(req_call.status_code)
             #  SNS Mesage Construct
-            SNS_message = SNS_message + curstrip + ' - failed\n'
+            sns_message = sns_message + curstrip + ' - failed\n'
 
     # print(SNS_message)
-    MySNS.publish(
+    my_sns.publish(
         TopicArn='arn:aws:sns:eu-west-1:575052121955:MyDailyPondus',
         Subject='My Daily Pondus',
-        Message=SNS_message)
+        Message=sns_message)
 
     print('Function complete')
