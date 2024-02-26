@@ -17,7 +17,7 @@ def lambda_handler(event, context):
     # stripList = ['hanneland', 'hjalmar', 'lunch', 'pondus', 'storefri']
     # //  Hanneland removed 27/08/2020 and replaced with Zelda
     # Storefri re-added 07/03/2022
-    strip_list = ['gjesteserie', 'hjalmar', 'lunch', 'pondus', 'storefri', 'ting_jeg_gjorde']
+    strip_list = [ 'hjalmar', 'lunch', 'pondus', 'storefri', 'tegnehanne']
     curdate = time.strftime("%Y-%m-%d", time.localtime())
     sns_message = 'Comic Strip status for ' + curdate + '\n'
 
